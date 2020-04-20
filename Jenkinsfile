@@ -6,9 +6,7 @@ pipeline {
   stages {
     
     stage ('Initialize')  { steps { sh 'pwd' 
-                                   sh 'whoami' 
-                                   sh 'sudo su' 
-                                   sh 'whoami' } }                                     
+                                   sh 'whoami'  } }                                     
     
     stage ('Check-Git-Secrets') { steps {
                                             sh 'rm trufflehog || true'
