@@ -12,18 +12,19 @@ pipeline
 					sh 'whoami'
 				}
 		}
-	  satge('check-git-sevrets'){
-	steps
-	{
+	  satge ('check-git-sevrets')
+	  {
+		steps
+		{
 			sh 'docker pull gesellix/trufflehog'
 			sh 'rm gitcheck || true'
 			sh 'docker run -t gesellix/trufflehog --json https://github.com/kdtejas/mavenexample.git > gitcheck'
 			sh 'cat gitcheck'
+		}
 	}
-}
 		stage ('Build') { steps { sh 'mvn clean package' } }
 	  
-	  stage('Deploy-to-tomcat')
+	  stage ('Deploy-to-tomcat')
 	{
 		steps
 		{
