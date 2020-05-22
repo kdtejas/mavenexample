@@ -13,6 +13,11 @@ pipeline
 				}
 		}
 		stage ('Build') { steps { sh 'mvn clean package' } }
+	  	stage ('Check-Git-Secrets') { steps {
+			 		    sh 'docker pull gesellix/trufflehog'
+                                            sh 'rm trufflehog || true'
+                                            sh 'docker run gesellix/trufflehog --json https://github.com/kdtejas/mavenexample.git > trufflehog'
+                                            sh 'cat trufflehog'  } }
 	  
 	  	stage ('Deploy-to-tomcat')
 		{
