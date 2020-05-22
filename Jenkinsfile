@@ -13,6 +13,17 @@ pipeline
 				}
 		}
 		stage ('Build') { steps { sh 'mvn clean package' } }
+	  stage ('SAST')
+{
+steps
+{
+withSonarQubeEnv('sonar')
+{
+sh 'mvn sonar:sonar'
+sh 'cat target/sonar/report-task.txt'
+}
+}
+}
 	  	stage ('Check-Git-Secrets') { steps {
 			 		    sh 'docker pull gesellix/trufflehog'
                                             sh 'rm trufflehog || true'
