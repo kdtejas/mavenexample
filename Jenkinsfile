@@ -31,10 +31,9 @@ pipeline
                                             sh 'docker run gesellix/trufflehog --json https://github.com/kdtejas/mavenexample.git > trufflehog'
                                             sh 'cat trufflehog'  } }
 	  
-		stage ('DAST')
-		{ steps { /*sshagent(['zap-ssh']) {
-				sh 'ssh -o StrictHostKeyChecking=no ubuntu@234.78.4.21 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://89.34.204.21:8080/webapp" || true'
-			} */ } 
+		stage ('DAST') { steps { sshagent(['tomcat']) {
+				sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.233.15.162 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://13.233.15.162:8080/webapp" || true'
+			}  } 
 		}
 	  
 	  	stage ('Deploy-to-tomcat')
